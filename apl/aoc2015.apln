@@ -1,0 +1,137 @@
+:Namespace aoc2015
+⍝ NOTE:: Reading this project
+⍝ Function names::
+⍝ Function names are solutions (s) for a given day (01-25) for
+⍝ a given part number (_1) with an optional specifier (g/f/c)
+⍝ s01_1  is solution for day 1 part 1
+⍝ s01_1a is the generalization of day 1 part 1 and part 2
+⍝ a ←→ abstract / generalization
+⍝ f ←→ fast     / optimized
+⍝ g ←→ golfed   / shortened
+⍝ c ←→ clever   / hackish
+⍝ p ←→ puzzle specific solution
+
+⍝ DFNS::
+s01_1a ← {¯1+ ') (' ⍳⍵}                  ⍝ 1_1 The map ¯1 ←→ ) ⋄ 1 ←→ ( 
+s01_1  ← +/ s01_1a                       ⍝ Sum the map
+s01_1g ← (+/¯1+') ('∘⍳)                  ⍝ Tacit version
+s01_2  ← 1+¯1⍳⍨+\∘s01_1a                 ⍝ 1_2 Where is the first ¯1 in progressive sum
+                                         ⍝ --- 
+s02_1  ← +/{{(⌊/⍵)+ 2× +/⍵} 2×/ ⍵,⊃⍵}¨   ⍝ 2_1 Sum total of double each 2-chunk 
+s02_1g ← +/((⌊/+2×+/)2×/,∘⊃⍨)¨           ⍝ ... product plus the minimum value in 
+s02_2  ← +⌿⍣≡∘↑{(×/⍵), 2× 2↑ ⍵[⍋⍵]}¨     ⍝ ... the 2-chunk product 
+s02_2g ← +⌿⍣≡∘↑(×/,2×2↑⊂∘⍋⌷⊢)¨           ⍝ 2_2 Sum total of double the 2 shortest 
+                                         ⍝ ... plus the volume of the input
+                                         ⍝ ---
+s03_1a ← {≢∪⍺⍺ 0⍪↑(⊂'v<>^'⍳⍵)⌷,∘.,⍨¯1 1} ⍝ 3_1 Count the unique ordered pairs in the
+s03_1  ← +⍀ s03_1a                       ⍝ ... progressive sum of visited cells
+s03_2  ← {,↓ +⍀⍤2⊢ (2|⍳≢⍵)⊢ ⌸⍵} s03_1a   ⍝ ... in a 2d diagonal coordinate plane
+                                         ⍝ 3_2 Unique count of the cells in progressive
+                                         ⍝ ... sum of even and odd rows
+                                         ⍝ ---
+s05_1a←{                                 ⍝ 5_1 Single case
+    pair ← ∨/2=/⊢                        ⍝ ... Any neighbors match?
+    vowl ← 3≤1⊥∊∘'aeiou'                 ⍝ ... 3 or more vowels?
+    subs ← ~'ab' 'cd' 'pq' 'xy'∨.(∨/⍷)⊂  ⍝ ... Substrings exist?
+    (subs ∧ pair ∧ vowl) ⍵               ⍝ ... All true?
+}                                        ⍝ ---
+s05_2a←{                                 ⍝ 5_2 Single case
+    hug    ← {∨/(⌽≡⊢)¨3,/⍵}              ⍝ ... Any 3 chunk palindromes?
+    twice  ← ≢≠≢∘∪                       ⍝ ... Something occurs more than once?
+    nolap  ← ∧/2≢/⊢                      ⍝ ... Neighbor pairs DONT match?
+    twilap ← {∨/(twice∧nolap)2,/⍵}       ⍝ ... Any of the chunks of 2 appear 
+    (hug ∧ twilap) ⍵                     ⍝ ... twice with no overlap? 
+}                                        ⍝ --- 
+s05_1  ← 1⊥s05_1a ¨                      ⍝ ... How many total , using a 1 base 
+s05_2  ← 1⊥s05_2a ¨                      ⍝ ... encoding of the boolean result
+                                         ⍝ --- 
+s06a←{                                   ⍝ 6_A Generalize both solutions
+    ~×≢⍵  : 1⊥,⍺                         ⍝ ... Not any? Then sum reduce
+    onoff ← ⍺⍺ ⋄ togl ← ⍵⍵               ⍝ ... Name functions for each case
+    range ← {,{(⊃⍵)∘+¨⍳1+⊃|-/⍵}1↓¨⍵}     ⍝ ... The range of inds to modify
+    ⍺     ← 1000 1000⍴0                  ⍝ ... A light matrix default value
+    f     ← ⍎'onoff∘⍵' 'togl'⊃⍨'e'=⊃⊃⊃⍵  ⍝ ... Which action for this range?
+    (0⌈f@(range⊃⍵)⊢⍺) ∇ 1↓⍵              ⍝ ... Set value at indices, 0 floor
+}                                        ⍝ ... 
+s06_1 ← {'n'=⊃⊃⊃⍵} s06a ~                ⍝ 6_1 set on = 1 / off = 0 / toggle = ~⍵
+s06_2 ← {⍺+¯1+'f n'⍳⊃⊃⊃⍵} s06a {2+⍵}     ⍝ 6_2 add on   1 / off  ¯1 / toggle    2
+
+s07_1 ← {
+    B16    ← (16⍴2)⊤⊢           ⋄ LOGIC ← { INT⊃⍺⍺/B16¨⍺ ⍵} ⋄ OR  ← ∨LOGIC  
+    INT    ← 2⊥⊢                ⋄ NOT   ← {INT~INT⍣¯1⊢⍵}    ⋄ AND ← ∧LOGIC
+    LSHIFT ← INT(×∘×⍨∘≢↑↓)∘B16⍨ ⋄ NEXT  ← {⍵⊖⍨⍵[;4]⍳⊆,⍺}
+    RSHIFT ← LSHIFT∘-
+    EXPR   ← {∊'(',⍺,'←',⍵,')'}
+    been   ← 0⍴,⊂''
+    eval   ← {
+        ⍝⍝⍝ THIS IS WAYY ToO CONVOLUTED
+        d ← ⍺ + 1                        ⍝ depth
+        c ← ,1↑⍵                         ⍝ current 
+        (v x op y)← c[4,⍳3]              ⍝ name args
+        (by ny)←(⊃,⊃∘⌽)⎕VFI y            ⍝ is a number? 
+        (bx nx)←(⊃{⍺ ⍵}⊃∘⌽)⎕VFI x        ⍝ is a number? 
+        ∧/' '=∪op: {                     ⍝ noop
+            by: ny                       ⍝ is a numerical literal
+            v EXPR (d eval y NEXT ⍵)     ⍝ is a variable name
+        } ⍵
+        (⊆,v)∊been: ÷0
+        been∘←(⊆,v), been
+        by∧e←∧/' '=∪x: v EXPR                op, ny      ⍝ y is numerical literal
+        e            : v EXPR                op, (d ∇ y NEXT ⍵) 
+        bx ∧ ~by     : v EXPR nx             op, (d ∇ y NEXT ⍵)
+        by ∧  bx     : v EXPR nx             op, ny
+        by ∧ ~bx     : v EXPR (d ∇ x NEXT ⍵) op, ny  ⍝ y is numerical literal
+        ~by∧ ~bx     : v EXPR (d ∇ x NEXT ⍵) op, (d ∇ y NEXT ⍵)
+        ~∨/⍵[;4]∊x y : 0                 ⍝ not found in list
+        ''
+    }
+    ⍝ result←⍵∘{0 eval (⍵ NEXT ⍺)}¨⍵[;4]
+    ⍝ result
+    0 eval 'a' NEXT ⍵
+
+}
+
+⍝ TESTS:: to run these tests call: t.test aoc2015 
+tests←{
+    join ← {⍵,⊂{(⊂0⌷⍵),(+/1⌷⍵)} ⍉↑ ⍺}
+    ⍝ t is or tests, i is for puzzle input
+    ⍝ INPUT::  some input from the website needs parsing, so handle input here
+    n   ← ⎕THIS
+    i01 ← ⊃              2015 #.day 1
+    i02 ← {⍎('x'⎕R' ')⍵}¨2015 #.day 2
+    i03 ← ⊃              2015 #.day 3
+    i05 ←                2015 #.day 5
+    i06 ← ('.? ?\d+,\d+'⎕S{(⊃,∘⍎1↓⊢)⍵.Match~' '})¨2015 #.day 6
+    i07 ← ⌽↑¯5↑¨' '∘(≠⊆⊢)¨2015 day 7 ⍝ table in reverse order of lines
+
+    t2_1 ← ,⊂2 3 4
+    t2_2 ← ,⊂1 1 10
+
+    n.s01_1_tests   ←   ('((('  3)('(()(()(' 3)('()()'  0)('(((())))' 0)('))(((((' 3)
+    n.s01_1_tests  ,←   ('())' ¯1)('))((()'  0)(')))'  ¯3)(')())())' ¯3)('(((((((' 7)
+    n.s01_1_tests  ,←   (')))' ¯3)('(((((()' 5)(')))(' ¯2)(')(())))' ¯3)(i01      74)
+    n.s01_2_tests   ← ,⊂(i01 1795)
+    n.s01_1g_tests  ← n.s01_1_tests
+
+    n.s02_1_tests   ←   (t2_1 58) (t2_2 43) ((t2_1,t2_2) 101) (i02 1606483)
+    n.s02_2_tests   ← ,⊂(i02 3842356)
+    n.s02_1g_tests  ← n.s02_1_tests
+    n.s02_2g_tests  ← n.s02_2_tests 
+
+    n.s03_1_tests   ←   (''     1)('^v'   2)((400⍴  '<>') 2)((100⍴     '^') 101)
+    n.s03_1_tests  ,←   ('<>'   2)('<^v<' 4)((400⍴  '^v') 2)(('<^'[?500⍴2]) 501)
+    n.s03_1_tests  ,←   ('<^v>' 3)('^>v<' 4)((200⍴'^>v<') 4)(i03           2565)
+    n.s03_2_tests   ← ,⊂(i03 2639)
+
+    n.s05_1a_tests  ←   ('hjkl' 0)('aaa'   1)('aaacd' 0)('aaaac' 1)
+    n.s05_1a_tests ,←   ('acdc' 0)('dddbc' 0)('aaaxy' 0)('aeiio' 1)
+    n.s05_1a_tests ,←   ('xyab' 0)('iii'   1)('aaapq' 0)('iiiuj' 1)
+    n.s05_2a_tests  ←   ('xxyxx' 1)('qjhvhtzxzqqjkmpb' 1)('uurcxstgmygtbstg' 0)('ieodomkazucvgmuy' 0)
+    n.s05_1_tests   ← n.s05_1a_tests join ⊂i05 258
+    n.s05_2_tests   ← n.s05_2a_tests join ⊂i05  53
+
+    n.s06_1_tests   ← ,⊂(i06 543903)
+    n.s06_2_tests   ← ,⊂(i06 14687245)
+    ⍬
+}
+:EndNamespace

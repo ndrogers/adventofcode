@@ -1,0 +1,9 @@
+ns_test←{
+    ⍝ ⍵      ←→ namespace
+    ⍝ return ←→ 3-column charactar matrix
+    ⍝ Run every funciton in a namespace using cases defined by
+    ⍝ `{function_name}_tests`
+    ⍝ The value of this variable must be of the form
+    ⍝ `(input expected)(input expected)(input expected)...`
+    ↑⍵∘run¨⍵.⎕NL¯3
+}

@@ -1,0 +1,16 @@
+:Namespace config
+⍝ config will be used to store potential configuration options, such as weather to include
+⍝ a header or footer, truncate results, etc
+
+
+⍝ IMPLEMENTED:: 
+ error      ← 'TEST:ERR' ⍝ Reserved string that may not be returned by test_cases
+ exclude_ns ← (#.a ##.⎕THIS) ⍝ ##.⎕THIS exclude test namespace and 
+
+⍝ NOT IMPLEMENTED::
+ truncate_results ← 1 ⍝ whether to filter only failing results, or explicitly return all results
+ show_header      ← 1 ⍝ show header each time
+ show_footer      ← 1 ⍝ show footer each time
+
+    
+:EndNamespace

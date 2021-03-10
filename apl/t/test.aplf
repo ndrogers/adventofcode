@@ -1,0 +1,40 @@
+ test←{
+    ⍝ ⍵ ≡ ⍬                ←→ run ns_test for all namespaces in #
+    ⍝ ⍵ ≡ namespace        ←→ run ns_test for ⍵
+    ⍝ ⍺ ≡ namespace        ←→ run cases for each fname in ⍵ in namespace ⍺
+    ⍝ ⍺ ≡ ns ^ ⍵ ≡ charvec ←→ run a single run in ⍺
+    ⍝ return 6-column character matrix
+    ⍝ columns ←→ fn ran passed failed error repor
+    ⍝ Run a test configured by the form of the inputs
+
+    ⍝ CONST::
+     ⍺  ← ⍬
+     nil←0 6⍴⍬
+
+    ⍝ DFNS::
+     is_ns   ← {9.1=⎕NC⊂⍕⍵}  ⍝ ⍵ is a namespace
+     is_char ← { 80=⎕DR  ⍵}  ⍝ ⍵ is charvec
+     nt      ← {∧/⍵∘≢¨({2↓⍕⍵}¨⎕THIS.config.exclude_ns) : ⍺⍺ ⍵ ⋄ nil}
+     NL      ← {⍵.⎕NL -9.1}
+     fmt←{
+        ⍝ ⍵ ←→ a result of a run or namespace runs
+        ⍝ ⍺ ←→ the name of the function being tested
+         header←1∘(819⌶)¨(⍕⍺)'ran' 'passed' 'failed' 'error' 'report' ⍝ column names
+         0=⍴⍵[;1] : header ⍪ nil ⍪(⊂'TOTALS'),(4⍴⍕0),⊂'N/A' ⍝ no functions in namespace
+
+        ⍝ BODY::
+         total  ← ⍕¨+⌿⍵[;1 2 3 4]                             ⍝ collected results of all runs
+         body   ← ⍵⌿⍨f←≠/⍵[;1 2]                              ⍝ select only the failing/errors
+         fmsg   ← ∊'FAILED: ',{∊⍺','⍵}/{⍵,(0=≢⍵)/⊂''}body[;0] ⍝ failure message
+         footer ← (⊂'TOTALS'),total,⊂∊(('PASS'fmsg )[∨/f])    ⍝ PASS or FAIL message
+         header ⍪ body ⍪ footer                               ⍝ header + body + footer
+     }
+
+    ⍝ BODY::
+     (is_ns ⍺)∧⍬≡⍵        : ⊃⍪/(⍺∘{⍵ fmt ns_test ⍺⍎⍵ }nt)¨NL ⍺ ⍝ ns test ⍬
+     ⍬≡⍵                  : ⊃⍪/(  {⍵ fmt ns_test #⍎⍵ }nt)¨NL # ⍝    test #
+     is_ns ⍵              :       ⍵ fmt ns_test   ⍵            ⍝    test ns
+     (is_ns ⍺)∧~is_char ⍵ :       ⍺ fmt ↑⍺∘run¨   ⍵            ⍝ ns test 'name' 'name1' 'name2'
+     (is_ns ⍺)∧ is_char ⍵ :       ⍺ fmt ↑⍺ run¨ ,⊂⍵            ⍝ ns test 'name'
+     (⊂'Invalid argument format'),2⍴⊂⍬                         ⍝ none of the above
+ }

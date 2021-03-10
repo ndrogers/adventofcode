@@ -1,0 +1,9 @@
+:Namespace aoc2016
+s01←{⍵}
+
+tests←{
+    n←⎕NS
+    n.s01_tests←,⊂(1 1)
+}
+
+:EndNamespace

@@ -1,0 +1,4 @@
+:Namespace a
+#.day ←{ ⊃⎕NGET (∊'c:\d\aoc\'(⍕⍺)'/'(⍕⍵)'.txt') 1 }
+    
+:EndNamespace
