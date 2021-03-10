@@ -1,4 +1,7 @@
 :Namespace a
-#.day ←{ ⊃⎕NGET (∊'c:\d\aoc\'(⍕⍺)'/'(⍕⍵)'.txt') 1 }
+∇ h←here
+  h←⊃⎕NPARTS⊃3⌽5179⌶⊃⎕SI
+∇
+#.day ←{ ⊃⎕NGET (∊a.here'../'(⍕⍺)'/'(⍕⍵)'.txt') 1 }
     
 :EndNamespace
