@@ -15,21 +15,11 @@ s03g:{#?x(+1-2*!2 2)"^<>v"?y}       / ngn: "use odometer"
 s031:s03a[+\]                       / sum scan
 s032:s03a{,/+\+x@.=2!!#x}           / sum scan alternating nodes
 
-/ tests: uncomment to run
-prs:({*x};s02p;{*x})                / parsers
-day:{(prs@x-1)@0: "../2015/",($x),".txt"}
-fns: (s011;s012   / day 1
- s021;s022        / day 2
- s031;s032)       / day 3
-inp: day'1 1 2 2 3 3
+prc:({*x};s02p;{*x}) / processors for each day
+day:{(prc@x-1)@0: "../2015/",($x),".txt"} / get todays file
+fns: (s011;s012      / day 1
+ s021;s022           / day 2
+ s031;s032)          / day 3
+inp: day'1 1 2 2 3 3 / inputs
 exp: 74 1795 1606483 3842356 2565 2639
-exp~fns@'inp / tests match expected
-/i01 : *day 1                       
-/ s011 i01 / 74
-/ s012 i01 / 1795
-/i02 : s02p@day 2
-/ s021 i02 / 1606483
-/ s022 i02 / 3842356
-/i03 : *day 3
-/ s031 i03 / 2565
-/ s032 i03 / 2639
+exp~fns@'inp / expected matches the final results
