@@ -1,6 +1,6 @@
 :Namespace a
-∇ h←here
-  h←⊃⎕NPARTS⊃3⌽5179⌶⊃⎕SI
+∇ r←here
+  r←here←(⎕EX'here')⊢⊃1⎕NPARTS⊃3⌽5179⌶'here'
 ∇
 #.day ←{ ⊃⎕NGET (∊a.here'../'(⍕⍺)'/'(⍕⍵)'.txt') 1 }
     
