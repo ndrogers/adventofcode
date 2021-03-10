@@ -16,11 +16,13 @@ s031:s03a[+\]                       / sum scan
 s032:s03a{,/+\+x@.=2!!#x}           / sum scan alternating nodes
 
 / tests
-prc:({*x};s02p;{*x}) / processors for each day
-day:{(prc@x-1)@0: "../2015/",($x),".txt"} / get todays file
-fns: (s011;s012      / day 1
- s021;s022           / day 2
- s031;s032)          / day 3
-inp: day'1 1 2 2 3 3 / inputs
-exp: 74 1795 1606483 3842356 2565 2639
-exp~fns@'inp / expected matches the final results
+prc:({*x};s02p;{*x})          / processors for each day
+day:{f:prc@x-1                / proce func
+ f@0: "../2015/",($x),".txt"} / read
+c:((s011;1;74)
+   (s012;1;1795)
+   (s021;2;1606483)
+   (s022;2;3842356)
+   (s031;3;2565)
+   (s032;3;2639))
+{(x 2)~(x 0)@'day'(x 1)}@+c
