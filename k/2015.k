@@ -15,6 +15,7 @@ s03g:{#?x(+1-2*!2 2)"^<>v"?y}       / ngn: "use odometer"
 s031:s03a[+\]                       / sum scan
 s032:s03a{,/+\+x@.=2!!#x}           / sum scan alternating nodes
 
+
 / tests
 prc:({*x};s02p;{*x})          / processors for each day
 day:{f:prc@x-1                / proce func
