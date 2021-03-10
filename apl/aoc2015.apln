@@ -102,7 +102,7 @@ tests←{
     i03 ← ⊃              2015 #.day 3
     i05 ←                2015 #.day 5
     i06 ← ('.? ?\d+,\d+'⎕S{(⊃,∘⍎1↓⊢)⍵.Match~' '})¨2015 #.day 6
-    i07 ← ⌽↑¯5↑¨' '∘(≠⊆⊢)¨2015 day 7 ⍝ table in reverse order of lines
+    i07 ← ⌽↑¯5↑¨' '∘(≠⊆⊢)¨2015 #.day 7 ⍝ table in reverse order of lines
 
     t2_1 ← ,⊂2 3 4
     t2_2 ← ,⊂1 1 10

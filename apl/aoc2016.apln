@@ -2,8 +2,9 @@
 s01←{⍵}
 
 tests←{
-    n←⎕NS
+    n←⎕THIS
     n.s01_tests←,⊂(1 1)
+    ⍬
 }
 
 :EndNamespace
