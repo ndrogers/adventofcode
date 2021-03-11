@@ -14,21 +14,20 @@ s03a:{#?x(,/a,\:/:a:1,-1)"^<>v"?y}  / unique count of nodes
 s03g:{#?x(+1-2*!2 2)"^<>v"?y}       / ngn: "use odometer"
 s031:s03a[+\]                       / sum scan
 s032:s03a{,/+\+x@.=2!!#x}           / sum scan alternating nodes
-
-s04a:{{~x~(#x)#`k `md5 y,$z}[x;y]{1+x}/1}
-s041:{s04a["0x00000";x]}
-s042:{s04a["0x000000";x]} / {x+~&/1 1 16>3#`md5"yzbqklnj",$x}/1 / ngn solution much faster
-
-/ day 5 helpers
-vc:{2<+/~^"aeiou"?x}
-rp:{|/~':x}                              / repeat letters
-il:{~|//~^("ab";"cd";"pq";"xy")?/:,2':x} / in naughty list
-s051:{+/&/'(vc;rp;il)@\:/:x}             / all true? 
+s04a:{f:{~x~(#x)#`k `md5 y,$z}[x;y] / check the first #x charactars for match
+ f(1+)/1}                           / repeat until f x
+s041:{s04a["0x00000";x]}            / {x+~&/1 1 16>3#`md5"yzbqklnj",$x}/1 / ngn solution much faster 
+s042:{s04a["0x000000";x]}           / try the ngn solution  
+vc  :{2<+/~^"aeiou"?x}              / adequate number of vowels
+rp  :{|/~':x}                       / repeat letters
+il  :{s:("ab";"cd";"pq";"xy")       / naughty list
+ ~|//~^s?/:,2':x}                   / in naughty list
+s051:{+/&/'(vc;rp;il)@\:/:x}        / all true? 
 
 
 
 skip: ,4                      / takes too long
-prc:(*:;s02p;*:;*:;::)       / processors
+prc:(*:;s02p;*:;*:;::)        / processors
 day:{f:prc@x-1                / proce func
  f@0: "../2015/",($x),".txt"} / read
 t:{(x 2)~(x 0)@'day'x 1}      / test
@@ -38,7 +37,7 @@ c:((s011;1;74)                / cases
    (s022;2;3842356)
    (s031;3;2565)
    (s032;3;2639)
-   (s041;4;282749)   / takes too long
+   (s041;4;282749)  / takes too long
    (s042;4;9962624) / takes too long
-   (s051;5;258)) / takes too long
+   (s051;5;258))   
 t@+{x@&|/~skip=\:(+x) 1}c
