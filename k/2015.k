@@ -23,7 +23,7 @@ s042:{s04a["0x000000";x]} / {x+~&/1 1 16>3#`md5"yzbqklnj",$x}/1 / ngn solution m
 vc:{2<+/~^"aeiou"?x}
 rp:{|/~':x}                              / repeat letters
 il:{~|//~^("ab";"cd";"pq";"xy")?/:,2':x} / in naughty list
-s051:{+/ {&/(vc;rp;il)@\:x}'x}             / all true? 
+s051:{+/&/'(vc;rp;il)@\:/:x}             / all true? 
 
 
 
