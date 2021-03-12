@@ -37,7 +37,7 @@ s06p:{{{(*|x 1),.'x 2 4} -5#" "\x}'x} / process todays input
   {x y z}[t;s]@'(a;b)}0             / totals for each day }
 
 
-."\\l t.k"         /testing
+."\\l test.k"         /testing
 (day;t;c;e):.utils 0
 
 ex:,/(74 1795      / required: must be even length
