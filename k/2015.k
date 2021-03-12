@@ -43,8 +43,7 @@ s06p:{{{(*|x 1),.'x 2 4} -5#" "\x}'x}      / process todays input
  b:"enf"!(2++;1++;-1++)                  / day 2 actions
  s:{0|.[y;{x+!1+y-x}'/1_z;x@*z;0]}  / 1 step 
  t:{+//(1000 1000#0)x/y}                 / total
- {x[y[z]]}[t;s]@'(a;b)}""   / totals for each day }
- 
+ {x[y[z]]}[t;s]@'(a;b)}""               / totals for each day }
 
 skip: ,4                     / takes too long
 prc:(*:;s02p;*:;*:;::;s06p) / processors
@@ -52,48 +51,4 @@ prc:(*:;s02p;*:;*:;::;s06p) / processors
 ."\\l s2.k"
 (day;t;c;e):.utils""
 e c
-
-
-
-
-
-
-
-
-
-
-c
-
-
-
-
-
-
-
-
-
-2p;*:;*:;::;s06p)   / processors
-e c
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:(+x) 1}c
-
-
-
-
-
-
-
 
