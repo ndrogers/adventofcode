@@ -1,4 +1,4 @@
-#!/home/ndr/k/k
+year:2015
 / solution s     / day nn / part n / signifiers a p
 / general case a / parse text file p
 / helpers
@@ -56,6 +56,12 @@ c:((s011;1;74)                / cases
 
 
 t@+{x@&&/~skip=\:(+x) 1}c
+
+
+
+
+
+
 
 
 
