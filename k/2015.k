@@ -1,3 +1,4 @@
+#!/home/ndr/k/k
 / solution s     / day nn / part n / signifiers a p
 / general case a / parse text file p
 / helpers

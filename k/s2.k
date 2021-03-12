@@ -1,5 +1,5 @@
-utils:{day:{f:`prc@x-1       / proce func
-  f@0: `year,($x),".txt"}    / read
+utils:{day:{f:(.`prc)@x-1       / proce func
+  f@0: "../",($.`year),"/",($x),".txt"}    / read
   t:{(x 2)~(x 0)@'`day'x 1}  / test
   c:((s011;1;74)             / cases
      (s012;1;1795)
