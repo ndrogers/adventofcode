@@ -1,6 +1,6 @@
-utils:{day:{f:prc@x-1       / proce func
-  f@0: "../",($year),"/",($x),".txt"}    / read
-  t:{(x 2)~{.[.:;x;{{0}}]y}'[x 0]@day'x 1}  / test
+utils:{day:{f:prc@x-1                      / proce func
+  f@0: "../",($year),"/",($x),".txt"}      / read
+  t:{(x 2)~{.[.:;x;{{0}}]y}'[x 0]@day'x 1} / test
   e:{t@+{x@&&/~skip=\:(+x) 1} (x[&,/2#'^nys?!25]),'ex}
      /name d r?
   c:((`s011;1)  / cases
