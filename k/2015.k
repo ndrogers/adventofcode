@@ -26,7 +26,7 @@ nc  :{s:("ab";"cd";"pq";"xy")       / is nice if not on
  ~|//~^s?/:,2':x}                   / naughty list
 s051:{+/&/'(vc;rp;nc)@\:/:x}        / all true? 
 
-s06p:{{{(*|x 1),.'x 2 4} -5#" "\,x}'x}   / process input file
+s06p:{{{(*|x 1),.'x 2 4} -5#" "\x}'x}   / process todays input
 s06a:"enf"!(=;{y;1};:)                     / day 1 actions
 s06b:"enf"!({2+x+y};{1+x+y};{-1+x+y})      / day 2 actions
 s06s:{0|.[y;{x+!1+{x|-x}y-x}'/1_z;x@*z;0]} / 1 step 
