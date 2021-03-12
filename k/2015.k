@@ -1,3 +1,4 @@
+
 year:2015
 / solution s     / day nn / part n / signifiers a p
 / general case a / parse text file p
@@ -28,40 +29,66 @@ s051:{+/&/'(vc;rp;nc)@\:/:x}        / all true?
 
 / this domain maps "enf" to behaviors
 / e ←→ toggle, ←→ is on ←→ is off
+/ s06p:{{{(*|x 1),.'x 2 4} -5#" "\x}'x}      / process todays input
+/ s06a:"enf"!(=;{y;1};:)                     / day 1 actions
+/ s06b:"enf"!(2++;1++;-1++)                  / day 2 actions
+/ s06r:{x+!1+y-x}                            / index range
+/ s06s:{0|.[y;s06r'/1_z;x@*z;0]}             / 1 step 
+/ s06t:{+//(1000 1000#0)x/y}                 / total
+/ (s061;s062):{s06t[s06s[x]]}@'(s06a;s06b)   / totals for each day
+
 s06p:{{{(*|x 1),.'x 2 4} -5#" "\x}'x}      / process todays input
-s06a:"enf"!(=;{y;1};:)                     / day 1 actions
-s06b:"enf"!(2++;1++;-1++)                  / day 2 actions
-s06r:{x+!1+y-x}                            / index range
-s06s:{0|.[y;s06r'/1_z;x@*z;0]}             / 1 step 
-s06t:{+//(1000 1000#0)x/y}                 / total
-(s061;s062):{s06t[s06s[x]]}@'(s06a;s06b)   / totals for each day
+(s061;s062):{
+ a:"enf"!(=;{y;1};:)                     / day 1 actions
+ b:"enf"!(2++;1++;-1++)                  / day 2 actions
+ s:{0|.[y;{x+!1+y-x}'/1_z;x@*z;0]}  / 1 step 
+ t:{+//(1000 1000#0)x/y}                 / total
+ {x[y[z]]}[t;s]@'(a;b)}""   / totals for each day }
+ 
 
+skip: ,4                     / takes too long
+prc:(*:;s02p;*:;*:;::;s06p) / processors
 
-skip: 4 6                     / takes too long
-prc:(*:;s02p;*:;*:;::;s06p)   / processors
-day:{f:prc@x-1                / proce func
- f@0: "../2015/",($x),".txt"} / read
-t:{(x 2)~(x 0)@'day'x 1}      / test
-c:((s011;1;74)                / cases
-   (s012;1;1795)
-   (s021;2;1606483)
-   (s022;2;3842356)
-   (s031;3;2565)
-   (s032;3;2639)
-   (s041;4;282749)  / takes too long
-   (s042;4;9962624) / takes too long
-   (s051;5;258)
-   (s061;6;543903)   
-   (s062;6;14687245))   
-
-
-t@+{x@&&/~skip=\:(+x) 1}c
+."\\l s2.k"
+(day;t;c;e):.utils""
+e c
 
 
 
 
 
 
+
+
+
+
+c
+
+
+
+
+
+
+
+
+
+2p;*:;*:;::;s06p)   / processors
+e c
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:(+x) 1}c
 
 
 

@@ -1,6 +1,7 @@
 utils:{day:{f:(.`prc)@x-1       / proce func
   f@0: "../",($.`year),"/",($x),".txt"}    / read
-  t:{(x 2)~(x 0)@'`day'x 1}  / test
+  t:{(x 2)~(x 0)@'(.`day)'x 1}  / test
+  e:{(.`t)@+{x@&&/~(.`skip)=\:(+x) 1} x}
   c:((s011;1;74)             / cases
      (s012;1;1795)
      (s021;2;1606483)
@@ -12,4 +13,4 @@ utils:{day:{f:(.`prc)@x-1       / proce func
      (s051;5;258)
      (s061;6;543903)    / large data 
      (s062;6;14687245)) / large data
- `day`t`c!(day;t;c)}
+ `day`t`c`e!(day;t;c;e)}
