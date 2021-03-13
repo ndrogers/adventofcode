@@ -19,10 +19,6 @@ NOT   :{2/b16 x}
 (⍸):{&x~\:y}
 i:{.[{|/`b`h`i`l=@.x};,x;0]}
 eval:{[op;x;y] op,"[",x,(((~"NOT"~op)&(~0=#y))#";"),y,"]"}
-f:{$[(i y)|(~#y)
- y
- (i n:l 2)&#l: *pd v⍸ y
- n
- #l                          
- (x=1)_(-x=1)_eval[l 1;o[0] n;o[0] l 0]
- y]}[1]
+f:{l:*pd v⍸ x;$[(i x)|~# \x
+ x                          / x is a number, or empty
+ eval[ \l 1; o l 0; o l 2]]}                       / wtf? 
