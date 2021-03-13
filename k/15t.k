@@ -1,5 +1,5 @@
-."\\l test.k"         /testing
 ."\\l 15s.k"
+."\\l test.k"         /testing
 (day;t;c;e):.utils 0
 
 ex:,/(74 1795      / required: must be even length
@@ -11,10 +11,10 @@ ex:,/(74 1795      / required: must be even length
 year:2015               / required: name of folder containing inputs
 nys : {x+!25-x} (#ex)%2 / required: days not yet solved
 skip: 4 6               / required: ,-1 if no skipping
-prc:(*:;s02p;*:;*:;::   / required: processors
-   s06p;  ::;::;::;::   / 1 file input processor per day
-     ::;  ::;::;::;::
-     ::;  ::;::;::;::
-     ::;  ::;::;::;::) 
+prc :(*:;s02p;*:;*:;::  / required: processors
+    s06p;  ::;::;::;::  / 1 file input processor per day
+      ::;  ::;::;::;::
+      ::;  ::;::;::;::
+      ::;  ::;::;::;::) 
 e c
 
