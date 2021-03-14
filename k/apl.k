@@ -1,5 +1,7 @@
 (⊃:):*:          / first
 (⍳:):!:          / iota
+(⍳):{&x~\:y}     / index of
+(⍷):{x~/:(#x)':y}
 (⍸:):&:          / where
 (×:):{(x>0)-x<0} / signum
 (⌊):&            / min
