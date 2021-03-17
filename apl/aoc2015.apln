@@ -64,29 +64,8 @@ s07_1 ← {
     EXPR   ← {∊'(',⍺,'←',⍵,')'}
     been   ← 0⍴,⊂''
     eval   ← {
-        ⍝⍝⍝ THIS IS WAYY ToO CONVOLUTED
-        d ← ⍺ + 1                        ⍝ depth
-        c ← ,1↑⍵                         ⍝ current 
-        (v x op y)← c[4,⍳3]              ⍝ name args
-        (by ny)←(⊃,⊃∘⌽)⎕VFI y            ⍝ is a number? 
-        (bx nx)←(⊃{⍺ ⍵}⊃∘⌽)⎕VFI x        ⍝ is a number? 
-        ∧/' '=∪op: {                     ⍝ noop
-            by: ny                       ⍝ is a numerical literal
-            v EXPR (d eval y NEXT ⍵)     ⍝ is a variable name
-        } ⍵
-        (⊆,v)∊been: ÷0
-        been∘←(⊆,v), been
-        by∧e←∧/' '=∪x: v EXPR                op, ny      ⍝ y is numerical literal
-        e            : v EXPR                op, (d ∇ y NEXT ⍵) 
-        bx ∧ ~by     : v EXPR nx             op, (d ∇ y NEXT ⍵)
-        by ∧  bx     : v EXPR nx             op, ny
-        by ∧ ~bx     : v EXPR (d ∇ x NEXT ⍵) op, ny  ⍝ y is numerical literal
-        ~by∧ ~bx     : v EXPR (d ∇ x NEXT ⍵) op, (d ∇ y NEXT ⍵)
-        ~∨/⍵[;4]∊x y : 0                 ⍝ not found in list
-        ''
+      ⍝ caching is KEY
     }
-    ⍝ result←⍵∘{0 eval (⍵ NEXT ⍺)}¨⍵[;4]
-    ⍝ result
     0 eval 'a' NEXT ⍵
 
 }
