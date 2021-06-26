@@ -56,24 +56,11 @@ s06a←{                                   ⍝ 6_A Generalize both solutions
 s06_1 ← {'n'=⊃⊃⊃⍵} s06a ~                ⍝ 6_1 set on = 1 / off = 0 / toggle = ~⍵
 s06_2 ← {⍺+¯1+'f n'⍳⊃⊃⊃⍵} s06a {2+⍵}     ⍝ 6_2 add on   1 / off  ¯1 / toggle    2
 
-s07_1 ← {
-    B16    ← (16⍴2)⊤⊢           ⋄ LOGIC ← { INT⊃⍺⍺/B16¨⍺ ⍵} ⋄ OR  ← ∨LOGIC  
-    INT    ← 2⊥⊢                ⋄ NOT   ← {INT~INT⍣¯1⊢⍵}    ⋄ AND ← ∧LOGIC
-    LSHIFT ← INT(×∘×⍨∘≢↑↓)∘B16⍨ ⋄ NEXT  ← {⍵⊖⍨⍵[;4]⍳⊆,⍺}
-    RSHIFT ← LSHIFT∘-
-    EXPR   ← {∊'(',⍺,'←',⍵,')'}
-    been   ← 0⍴,⊂''
-    eval   ← {
-      ⍝ caching is KEY
-    }
-    0 eval 'a' NEXT ⍵
-
-}
 
 ⍝ TESTS:: to run these tests call: t.test aoc2015 
 tests←{
     join ← {⍵,⊂{(⊂0⌷⍵),(+/1⌷⍵)} ⍉↑ ⍺}
-    ⍝ t is or tests, i is for puzzle input
+    ⍝ t ←→ tests, i ←→ puzzle input
     ⍝ INPUT::  some input from the website needs parsing, so handle input here
     n   ← ⎕THIS
     i01 ← ⊃              2015 #.day 1

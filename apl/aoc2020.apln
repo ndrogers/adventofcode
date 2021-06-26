@@ -1,0 +1,23 @@
+:Namespace aoc2020
+⍝ SOLUTIONS ::
+d1←{×/ {⊃⍵[⊃⍸2020=+/¨⍵]} (∘.,⍣⍺)⍨⍵}
+d1_1←1∘d1
+d1_2←2∘d1
+
+day2←{                                         ⍝ DAY 2::
+   i←⍺⍺∘{⍎¨'-'(≠⊆⊢)⊃⍵}                         ⍝ ... [i]ndices used to determine if the 
+   c←{⊃1⊃⍵}                                    ⍝ ... [c]haracter appears in the 
+   p←{⊃⌽⍵}                                     ⍝ ... [p]assword 
+   +/(⍎⍵⍵)¨⍵                                   ⍝ ... either... 
+}
+d2_1←{(⊃⍵)+⍳1+|-/⍵} day2 '(i +.⍷ c +.⍷     p)' ⍝ ... the correct number of times
+d2_2←         {⍵-1} day2 '(1 = c +.⍷ ⊂∘i⌷p)' ⍝ ... in the correct locations
+
+
+i2←' '(≠⊆⊢)¨2020 #.day 2
+⍝ TESTS :: 
+tests←{
+    i01←       ⍎¨2020 #.day 1
+    i02←' '(≠⊆⊢)¨2020 #.day 2
+}
+:EndNamespace
